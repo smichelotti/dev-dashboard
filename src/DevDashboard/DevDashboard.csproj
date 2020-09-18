@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>3c735eb9-e66f-4616-9e54-8793c9ad7d9e</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.10" />
+    <PackageReference Include="Figgle" Version="0.3.0" />
+    <PackageReference Include="Manatee.Trello" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+    <PackageReference Include="NStack.Core" Version="0.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Terminal.Gui">
+      <HintPath>..\..\lib\guics\Terminal.Gui.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
