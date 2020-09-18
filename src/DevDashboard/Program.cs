@@ -10,30 +10,16 @@ namespace DevDashboard
     class Program
     {
         // TODO: check into GitHub (squash *before* checking in and *after* secrets implemented!!)
-
-
-        static ColorScheme baseColorScheme = Colors.TopLevel;
+        static IServiceProvider services = ConfigureServices();
 
         static void Main(string[] args)
         {
-            var services = ConfigureServices();
-
             Application.Init();
-            var top = Application.Top;
 
             // Add Components
-            var today = services.GetService<Today>();
-            today.Init(Application.Top, x: 0, y: 0, height: 12, width: Dim.Fill(), baseColorScheme);
-            today.Setup();
-
-            var whiteboard = services.GetService<TrelloBoard>();
-            whiteboard.Init(Application.Top, x: 0, y: Pos.Bottom(today.Frame) + 1, height: 10, width: Dim.Fill(), baseColorScheme);
-            whiteboard.Setup();
-
-            var gitInfo = services.GetService<GitInfo>();
-            gitInfo.Init(Application.Top, x: 0, y: Pos.Bottom(whiteboard.Frame) + 1, height: 22, width: Dim.Fill(), baseColorScheme);
-            gitInfo.Setup();
-
+            var today = InitDashboardComponent<Today>(x: 0, y: 0, height: 12);
+            var whiteboard = InitDashboardComponent<TrelloBoard>(x: 0, y: Pos.Bottom(today.Frame) + 1, height: 10);
+            var gitInfo = InitDashboardComponent<GitInfo>(x: 0, y: Pos.Bottom(whiteboard.Frame) + 1, height: 22);
 
             Application.Run();
         }
@@ -49,6 +35,14 @@ namespace DevDashboard
             services.AddTransient<TrelloClient>();
             services.AddTransient<GitInfo>();
             return services.BuildServiceProvider();
+        }
+
+        private static T InitDashboardComponent<T>(Pos x, Pos y, int height) where T : DashComponent
+        {
+            var component = services.GetService<T>();
+            component.Init(Application.Top, x: x, y: y, height: height, width: Dim.Fill(), Colors.TopLevel);
+            component.Setup();
+            return component;
         }
     }
 }
