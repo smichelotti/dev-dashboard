@@ -15,7 +15,6 @@ namespace DevDashboard.Services
         public async Task<Weather> GetWeather(string location)
         {
             var response = await this.http.GetAsync($"http://weather.service.msn.com/find.aspx?src=outlook&weadegreetype=F&culture=en-US&weasearchstr={location}");
-            //var response = await this.http.GetAsync($"https://api.openweathermap.org/data/2.5/weather?q=Ellicott City,MD,US&appid=1db8772c0a78920a556ec02c3923d164");
             var xml = await response.Content.ReadAsStringAsync();
             var xDoc = new XmlDocument();
             xDoc.LoadXml(xml);
